@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Union Bank – AI Threat Detection Dashboard (MVP)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b1220;
+      color: #e5e7eb;
+    }
+    header {
+      background: #020617;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1f2933;
+    }
+    header h1 {
+      font-size: 20px;
+      margin: 0;
+      color: #38bdf8;
+    }
+    .container {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+    .card {
+      background: #020617;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 0 0 1px #1f2933;
+    }
+    .card h2 {
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #93c5fd;
+    }
+    .stat {
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .high { color: #ef4444; }
+    .medium { color: #facc15; }
+    .low { color: #22c55e; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 8px;
+      border-bottom: 1px solid #1f2933;
+      text-align: left;
+    }
+    th { color: #94a3b8; }
+    .badge {
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .badge.high { background: #7f1d1d; color: #fecaca; }
+    .badge.medium { background: #78350f; color: #fde68a; }
+    .badge.low { background: #064e3b; color: #a7f3d0; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Union Bank – Central AI Threat Detection Dashboard (HTM MVP)</h1>
+  <div>Live Status: <span class="low">● Connected</span></div>
+</header>
+
+<div class="container">
+
+  <!-- Risk Overview -->
+  <div class="card" style="grid-column: span 3;">
+    <h2>Internet Banking Risk</h2>
+    <div class="stat high" id="ibRisk">HIGH</div>
+  </div>
+
+  <div class="card" style="grid-column: span 3;">
+    <h2>ATM Network Risk</h2>
+    <div class="stat medium" id="atmRisk">MEDIUM</div>
+  </div>
+
+  <div class="card" style="grid-column: span 3;">
+    <h2>API Layer Risk</h2>
+    <div class="stat low" id="apiRisk">LOW</div>
+  </div>
+
+  <div class="card" style="grid-column: span 3;">
+    <h2>Total Active Threats</h2>
+    <div class="stat" id="threatCount">7</div>
+  </div>
+
+  <!-- Real-Time Alerts -->
+  <div class="card" style="grid-column: span 8;">
+    <h2>Real-Time AI Alerts (HTM Anomalies)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Source</th>
+          <th>Pattern Detected</th>
+          <th>Severity</th>
+        </tr>
+      </thead>
+      <tbody id="alertTable">
+        <tr>
+          <td>10:21:04</td>
+          <td>Internet Banking</td>
+          <td>Abnormal login + high-value transaction</td>
+          <td><span class="badge high">HIGH</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Auto Signature Panel -->
+  <div class="card" style="grid-column: span 4;">
+    <h2>Auto-Generated Threat Signatures</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Confidence</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="signatureTable">
+        <tr>
+          <td>UBI-HTM-001</td>
+          <td>92%</td>
+          <td><span class="badge high">Active</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+  // Simulated real-time updates (MVP demo)
+  setInterval(() => {
+    const severities = ['HIGH', 'MEDIUM', 'LOW'];
+    const sevClass = ['high', 'medium', 'low'];
+    const rand = Math.floor(Math.random() * 3);
+
+    const table = document.getElementById('alertTable');
+    const row = document.createElement('tr');
+
+    row.innerHTML = `
+      <td>${new Date().toLocaleTimeString()}</td>
+      <td>API Gateway</td>
+      <td>Temporal behavior deviation detected</td>
+      <td><span class="badge ${sevClass[rand]}">${severities[rand]}</span></td>
+    `;
+
+    table.prepend(row);
+
+    document.getElementById('threatCount').innerText = Math.floor(Math.random() * 15) + 1;
+  }, 4000);
+</script>
+
+</body>
+</html>
